@@ -8,8 +8,9 @@
     <artifactId>raindrop</artifactId>
     <version>0.0.1</version>
 
+
     <properties>
-        <kotlin.version>1.0.4</kotlin.version>
+        <kotlin.version>1.0.3</kotlin.version>
     </properties>
 
     <dependencies>
@@ -24,6 +25,14 @@
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
