@@ -4,8 +4,13 @@
     <!--<parameters>
         <parameter key="help.msg">我就是这么屌</parameter>
     </parameters>-->
-
     <drop id="help" class="Test.Help" scope="instance">
-        <property name="msg" value="我就是这么屌" />
+        <constructor> <!--终极推荐做法-->
+            <constructor-arg name="msg"  value="这个有点难啊"/>
+        </constructor>
+        <property name="other" href=""/>
+        <!--<constructor-arg> 之前行得通
+            <proerpty>用不到哦</proerpty>
+        </constructor-arg>-->
     </drop>
 </raindrop>

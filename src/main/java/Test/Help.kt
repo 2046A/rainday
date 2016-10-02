@@ -7,8 +7,8 @@ package Test
 /**
  * 意外发现两种赋值方式，不错不错...
  */
-class Help(msg:String){
-    var finalMsg = msg
+class Help(val message:String){
+    //var finalMsg = msg
     //fun action(){
 //        println(finalMsg)
 //    }

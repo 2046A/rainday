@@ -1,8 +1,8 @@
 /**
  * Created by ivan on 16/9/29.
- * Org.Dean.Raindrop.Reflect
+ * Org.Raindrop.Reflect
  */
-package Org.Dean.Raindrop.Reflect;
+package Org.Raindrop.Reflect;
 
 import Test.Help;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Parser {
             Class info = Class.forName(className);
             Constructor[] cons = info.getConstructors();
             for(int i=0;i<cons.length;i++) {
-                Constructor<?> constructor = cons[i];
+                Constructor constructor = cons[i];
                 Class[] pt = constructor.getParameterTypes();
                 ArrayList<Object> params = new ArrayList<Object>();
                 Class[] ano = new Class[pt.length];
@@ -29,8 +29,8 @@ public class Parser {
                 Constructor c = info.getConstructor(ano);
                 Object finalInstance = c.newInstance(finalParams);
                 Help h = (Help)finalInstance;
-                h.setFinalMsg("切爱");
-                System.out.println(h.getFinalMsg());
+                //h.("切爱");
+                System.out.println(h.getMsg());
             }
         }catch(Exception e){
             e.printStackTrace();
