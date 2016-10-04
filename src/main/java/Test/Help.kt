@@ -7,9 +7,9 @@ package Test
 /**
  * 意外发现两种赋值方式，不错不错...
  */
-class Help(val message:String){
-    //var finalMsg = msg
-    //fun action(){
-//        println(finalMsg)
-//    }
+class Help(var message:String){
+    var action: Action? = null
+    fun act(){
+        action?.act()
+    }
 }

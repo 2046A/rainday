@@ -30,7 +30,7 @@ public class Parser {
                 Object finalInstance = c.newInstance(finalParams);
                 Help h = (Help)finalInstance;
                 //h.("切爱");
-                System.out.println(h.getMsg());
+                System.out.println(h.getMessage());
             }
         }catch(Exception e){
             e.printStackTrace();

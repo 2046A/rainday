@@ -50,7 +50,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>test-compile</id>
+                        <id>parse-compile</id>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>test-compile</goal>

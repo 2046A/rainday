@@ -3,70 +3,109 @@
  * Org.Raindrop.Core.Parser
  */
 package Org.Raindrop.Parser
-import Test.Help
+
+//import Test.Help
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.io.SAXReader
 import java.io.InputStream
+import Org.Raindrop.Core.ClassConstructor
+import Org.Raindrop.Core.Container
+//import Org.Raindrop.Core.Container
+import Org.Raindrop.Core.Scope
+
+import java.lang.reflect.Field
 
 
 object XmlParser {
-    fun test(){
+    fun parse(): Unit {
         val reader = SAXReader()
-        val document: Document
-        val stream: InputStream? = this.javaClass.getResourceAsStream("/config.xml")//FileInputStream(File("/Users/ivan/Repositories/raindrop/src/main/java/Org.Raindrop.Core.Parser/config.xml"))
-        if(stream != null){
+        var document: Document
+        val stream: InputStream? = this.javaClass.getResourceAsStream("/config.xml")
+        if (stream != null) {
             document = reader.read(stream)
         } else {
             println("配置文件读取失败")
             return
         }
         val list = document.rootElement.elements("drop")
-        for(drop in list){
-            if(drop is Element){
+        for (drop in list) {
+            if (drop is Element) {
                 val id = drop.attribute("id").text
-                //val className = drop.attribute("class").text
+                val newConstructor = ClassConstructor()
+                newConstructor.scope = if (drop.attribute("scope").text == "singleton") Scope.SINGLETON else Scope.INSTANCE
                 val classContext = Class.forName(drop.attribute("class").text)
+                //先使用相应的函数给构造出来，然后再重新赋值
                 val constructor: Element? = drop.element("constructor")
                 var parameterNumber: Int = 0
-                if(constructor != null) {//使用构造器来构建实例
+                if (constructor != null) {
                     parameterNumber = constructor.elements("constructor-arg").size
-                    val userParameters = constructor.elements("constructor-arg")
-                    for(init in classContext.constructors){
-                        if(init.parameterTypes.size == parameterNumber) {//那就是这个构造函数了
+                    for (init in classContext.constructors) {
+                        if (init.parameterTypes.size == parameterNumber) {//就是这个构造器
                             val callTypes = kotlin.arrayOfNulls<Class<*>>(parameterNumber)
                             val callParameters = kotlin.arrayOfNulls<Any>(parameterNumber)
-                            for((index,type) in init.parameterTypes.withIndex()){
-                                //获取参数传递时的名称
-                                //init.get
-
-
-
+                            for ((index, type) in init.parameterTypes.withIndex()) {
                                 callTypes[index] = type
-                                val arg: Any? = userParameters.getOrNull(index)
-                                if(arg is Element){
-                                    callParameters[index] = arg.text//arg.attribute("text").value
-                                }
-                                //callParameters[index] = userParameters[index];
-                                //val value: Element = constructor.elements("arg")[index]//.stringValue
-                                //callParameters[index] = value?.toString()
-                                //for(p in init.parameters){
-                                //    if(type.javaClass.typeName == p.javaClass.typeName)
-                                //        callParameters[index] = init.parameters[index]//Class.forName(type.name).newInstance()
-                                //}
-                                //if(type.javaClass.typeName == init.pa)
-                                //callParameters[index] = parameters[index]
+                                callParameters[index] = Class.forName(type.name).newInstance()
                             }
-                            //这诡异的语法, 果然是有问题的嘛
                             val finalConstructor = classContext.getConstructor(callTypes.component1())
-                            val instance = finalConstructor.newInstance(callParameters.component1())
-                            if(instance is Help){
-                                //instance.finalMsg = "快去，拜托"
-                                println(instance.message)
+                            newConstructor.constructor = finalConstructor
+                            newConstructor.callParameters = callParameters
+                        }
+                    }
+                } else {
+                    newConstructor.constructor = classContext.getConstructor()
+                    newConstructor.callParameters = null
+                }
+                var index=0
+                if(drop.elements("property")!=null){
+                    for(parameter in  drop.elements("property")){
+                        if(parameter is Element){
+                            val name = parameter.attribute("name").value
+                            var value: Any? = null
+                            if (parameter.attribute("value") != null) {
+                                value = parameter.attribute("value").value
+                            } else if (parameter.attribute("ref") != null) {
+                                value = Container.drop(parameter.attribute("ref").value)
+                            }
+                            if(value!=null){
+                                for (field in classContext.declaredFields) {
+                                    if (field.name == name) {
+                                        newConstructor.fieldParameters[index] = Pair<Field, Any>(field, value)
+                                        index += 1
+                                    }
+                                }
                             }
                         }
                     }
+
                 }
+                if (constructor != null) { //使用构造函数初始化
+                    val userParameters = constructor.elements("constructor-arg")
+                    if (userParameters != null) {
+                        for (parameter in userParameters) {
+                            if (parameter is Element) {
+                                val name = parameter.attribute("name").value
+                                var value: Any? = null
+                                if (parameter.attribute("value") != null) {
+                                    value = parameter.attribute("value").value
+                                } else if (parameter.attribute("ref") != null) {
+                                    value = Container.drop(parameter.attribute("ref").value)
+                                }
+                                if (value != null) {
+                                    for (field in classContext.declaredFields) {
+                                        if (field.name == name) {
+                                            newConstructor.fieldParameters[index] = Pair<Field, Any>(field, value)
+                                            index += 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                Container.add(id, newConstructor)
             }
         }
     }
