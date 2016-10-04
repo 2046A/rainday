@@ -17,10 +17,6 @@ object Container {
     }
     fun construct(){
         XmlParser.parse()
-        //val list =
-        //if(list != null && list is List<ClassConstructor>){
-//            list.forEach { drops[it.id] = it }
-//        }
     }
     fun drop(id: String): Any?{
         val cons = drops[id]

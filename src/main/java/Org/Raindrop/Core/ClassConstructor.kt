@@ -16,7 +16,7 @@ class ClassConstructor {
     var scope = Scope.INSTANCE
     //var callTypes = kotlin.arrayOfNulls<Class<*>>(parameterNumber)
     var callParameters: Array<Any?>? = kotlin.arrayOfNulls<Any>(parameterNumber)
-    val fieldParameters = kotlin.arrayOfNulls<Pair<Field, Any>>(fieldNumber)
+    val fieldParameters = kotlin.arrayOfNulls<Pair<Field, Any?>>(fieldNumber)
     var instance: Any? = null
     fun construct(): Any?{
         if(scope == Scope.SINGLETON) {
@@ -40,8 +40,19 @@ class ClassConstructor {
         for(pair in fieldParameters){
             val field = pair?.first
             val value = pair?.second
+            var finalValue: Any? = value
+            if(value is  Pair<*,*>){//如果是pair，那就说明是延迟绑定
+                val serviceId = value.first //container内id
+                val service = value.second //实例
+                if(service != null){
+                    finalValue = service
+                } else {
+                    if(serviceId is String)
+                        finalValue = Container.drop(serviceId)
+                }
+            }
             field?.isAccessible = true
-            field?.set(instance, value)
+            field?.set(instance, finalValue)
             if(field?.modifiers.toString() == "private"){
                 field?.isAccessible = false
             } else{

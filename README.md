@@ -1,14 +1,16 @@
 #### raindrop - 基于kotlin语言的依赖注入框架
 * 使用xml文件格式配置
 * 尽量少的使用外部库，最好只使用标准库
-* 参考symofny的注入容器和spring
+* 参考Spring的xml配置
 
 #### 引用外部库
-*  **[dom4j](http://dom4j.github.io/)**
+*  **[dom4j](http://dom4j.github.io/)**，用于解析xml文件
+
+#### DONE
+* ref对于引用位置的限定去除，即当前的ref只能引用前面的drop而不能引用后面的drop
 
 #### TODO
 * 添加参数
-* ref对于引用位置的限定去除，即当前的ref只能引用前面的drop而不能引用后面的drop
 * 对于容器内部二次初始化属性的优化，使之只初始化一次
 * 代码优化
 
@@ -56,4 +58,5 @@ fun main(argv: Array<String>) {
 }
 ```
 
-整个过程就是这样了
+#### LICENSE
+**MIT LICENSE**

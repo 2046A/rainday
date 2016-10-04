@@ -4,14 +4,12 @@
  */
 package Org.Raindrop.Parser
 
-//import Test.Help
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.io.SAXReader
 import java.io.InputStream
 import Org.Raindrop.Core.ClassConstructor
 import Org.Raindrop.Core.Container
-//import Org.Raindrop.Core.Container
 import Org.Raindrop.Core.Scope
 
 import java.lang.reflect.Field
@@ -57,23 +55,21 @@ object XmlParser {
                     newConstructor.constructor = classContext.getConstructor()
                     newConstructor.callParameters = null
                 }
-                var index=0
-                if(drop.elements("property")!=null){
-                    for(parameter in  drop.elements("property")){
-                        if(parameter is Element){
+                var index = 0
+                if (drop.elements("property") != null) {
+                    for (parameter in drop.elements("property")) {
+                        if (parameter is Element) {
                             val name = parameter.attribute("name").value
                             var value: Any? = null
                             if (parameter.attribute("value") != null) {
                                 value = parameter.attribute("value").value
                             } else if (parameter.attribute("ref") != null) {
-                                value = Container.drop(parameter.attribute("ref").value)
+                                value = Pair(parameter.attribute("ref").value, Container.drop(parameter.attribute("ref").value))
                             }
-                            if(value!=null){
-                                for (field in classContext.declaredFields) {
-                                    if (field.name == name) {
-                                        newConstructor.fieldParameters[index] = Pair<Field, Any>(field, value)
-                                        index += 1
-                                    }
+                            for (field in classContext.declaredFields) {
+                                if (field.name == name) {
+                                    newConstructor.fieldParameters[index] = Pair<Field, Any?>(field, value)
+                                    index += 1
                                 }
                             }
                         }
@@ -90,7 +86,7 @@ object XmlParser {
                                 if (parameter.attribute("value") != null) {
                                     value = parameter.attribute("value").value
                                 } else if (parameter.attribute("ref") != null) {
-                                    value = Container.drop(parameter.attribute("ref").value)
+                                    value = Pair(parameter.attribute("ref"), Container.drop(parameter.attribute("ref").value))
                                 }
                                 if (value != null) {
                                     for (field in classContext.declaredFields) {
