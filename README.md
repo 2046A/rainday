@@ -4,7 +4,7 @@
 * 参考symofny的注入容器和spring
 
 #### 引用外部库
-*  dom4j
+*  **[dom4j](http://dom4j.github.io/)**
 
 #### 快速开始
 新建maven项目，编写xml配置文件命名为config.xml并放置resources目录下
