@@ -18,7 +18,7 @@ import java.lang.reflect.Field
 object XmlParser {
     fun parse(): Unit {
         val reader = SAXReader()
-        var document: Document
+        val document: Document
         val stream: InputStream? = this.javaClass.getResourceAsStream("/config.xml")
         if (stream != null) {
             document = reader.read(stream)
@@ -35,7 +35,7 @@ object XmlParser {
                 val classContext = Class.forName(drop.attribute("class").text)
                 //先使用相应的函数给构造出来，然后再重新赋值
                 val constructor: Element? = drop.element("constructor")
-                var parameterNumber: Int = 0
+                var parameterNumber: Int //= constructor?.elements("constructor-arg")?.size
                 if (constructor != null) {
                     parameterNumber = constructor.elements("constructor-arg").size
                     for (init in classContext.constructors) {
@@ -56,50 +56,29 @@ object XmlParser {
                     newConstructor.callParameters = null
                 }
                 var index = 0
-                if (drop.elements("property") != null) {
-                    for (parameter in drop.elements("property")) {
-                        if (parameter is Element) {
-                            val name = parameter.attribute("name").value
-                            var value: Any? = null
-                            if (parameter.attribute("value") != null) {
-                                value = parameter.attribute("value").value
-                            } else if (parameter.attribute("ref") != null) {
-                                value = Pair(parameter.attribute("ref").value, Container.drop(parameter.attribute("ref").value))
-                            }
-                            for (field in classContext.declaredFields) {
-                                if (field.name == name) {
-                                    newConstructor.fieldParameters[index] = Pair<Field, Any?>(field, value)
-                                    index += 1
-                                }
-                            }
-                        }
-                    }
-
+                var finalProperty: List<Any?> = arrayListOf(ClassConstructor::fieldParameters)
+                if(constructor != null ){
+                    finalProperty += constructor.elements("constructor-arg")
                 }
-                if (constructor != null) { //使用构造函数初始化
-                    val userParameters = constructor.elements("constructor-arg")
-                    if (userParameters != null) {
-                        for (parameter in userParameters) {
-                            if (parameter is Element) {
-                                val name = parameter.attribute("name").value
-                                var value: Any? = null
-                                if (parameter.attribute("value") != null) {
-                                    value = parameter.attribute("value").value
-                                } else if (parameter.attribute("ref") != null) {
-                                    value = Pair(parameter.attribute("ref"), Container.drop(parameter.attribute("ref").value))
-                                }
-                                if (value != null) {
-                                    for (field in classContext.declaredFields) {
-                                        if (field.name == name) {
-                                            newConstructor.fieldParameters[index] = Pair<Field, Any>(field, value)
-                                            index += 1
-                                        }
-                                    }
-                                }
+                if(drop.elements("property") != null){
+                    finalProperty += drop.elements("property")
+                }
+                for(parameter in finalProperty){
+                    if (parameter is Element) {
+                        val name = parameter.attribute("name").value
+                        var value: Any? = null
+                        if (parameter.attribute("value") != null) {
+                            value = parameter.attribute("value").value
+                        } else if (parameter.attribute("ref") != null) {
+                            value = Pair(parameter.attribute("ref").value, Container.drop(parameter.attribute("ref").value))
+                        }
+                        for (field in classContext.declaredFields) {
+                            if (field.name == name) {
+                                newConstructor.fieldParameters[index] = Pair<Field, Any?>(field, value)
+                                index += 1
                             }
                         }
                     }
-
                 }
                 Container.add(id, newConstructor)
             }

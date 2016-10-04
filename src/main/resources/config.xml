@@ -4,8 +4,6 @@
     <!--<parameters>
         <parameter key="help.msg">我就是这么屌</parameter>
     </parameters>-->
-    <drop id="simple" class="Test.ActionImpl.SimpleAction" scope="singleton" />
-
     <drop id="help" class="Test.Help" scope="instance">
         <constructor> <!--终极推荐做法-->
             <constructor-arg name="message"  value="怪wo"/>
@@ -13,4 +11,5 @@
         <property name="action" ref="simple"/>
     </drop>
 
+    <drop id="simple" class="Test.ActionImpl.SimpleAction" scope="singleton" />
 </raindrop>

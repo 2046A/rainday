@@ -23,15 +23,13 @@ class ClassConstructor {
             if(instance != null){
                 return instance
             } else {
-                generateInstance()
-                return instance
+                return generateInstance()
             }
         } else {
-            generateInstance()
-            return instance
+            return generateInstance()
         }
     }
-    private fun generateInstance(){
+    private fun generateInstance(): Any?{
         if(callParameters !=null && callParameters is Array<Any?>){
             instance = constructor?.newInstance(callParameters?.component1())
         } else {
@@ -59,5 +57,6 @@ class ClassConstructor {
                 field?.isAccessible = true
             }
         }
+        return instance
     }
 }
