@@ -9,26 +9,26 @@
 #### 快速开始
 新建maven项目，编写xml配置文件命名为config.xml并放置resources目录下
 
-``
+```
 <drop id="help" class="Test.Help" scope="instance">
         <constructor> 
             <constructor-arg name="message"  value="怪wo了"/>
         </constructor>
         <property name="action" value="simple"/>
 </drop>
-``
+```
 
 新建包Test,编写Help类如下
 
-``
+```
 class Help(var message:String){
     var action: String? = null
 }
-``
+```
 
 编写启动文件
 
-``
+```
 import Org.Raindrop.Core.Container
 
 fun main(argv: Array<String>) {
@@ -38,6 +38,6 @@ fun main(argv: Array<String>) {
         println(a.message)
     }
 }
-``
+```
 
 整个过程就是这样了
