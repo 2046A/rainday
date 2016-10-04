@@ -6,6 +6,11 @@
 #### 引用外部库
 *  **[dom4j](http://dom4j.github.io/)**
 
+#### TODO
+* ref对于引用位置的限定去除，即当前的ref只能引用前面的drop而不能引用后面的drop
+* 对于容器内部二次初始化属性的优化，使之只初始化一次
+* 代码优化
+
 #### 快速开始
 新建maven项目，编写xml配置文件命名为config.xml并放置resources目录下
 
