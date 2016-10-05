@@ -2,7 +2,7 @@
 
 <raindrop>
     <parameters>
-        <parameter key="help.msg">我就是这么屌</parameter>
+        <parameter key="help.message">我就是这么屌</parameter>
     </parameters>
     <drop id="help" class="Test.Help" scope="singleton">
         <property name="message" value="%help.message%" />

@@ -18,6 +18,20 @@ import java.util.*
 
 class XmlParser: Parser{
     override var configFile: String? = null
+    var parameterList = hashMapOf<String, String>()
+    fun parseParameter(document: Document){//解析参数配置
+        val parameters = document.rootElement.element("parameters").elements("parameter")
+        if(parameters != null){
+            for(element in parameters){
+                if(element is Element){
+                    val key = "%" + element.attribute("key").value + "%"
+                    //val value = element.text
+                    parameterList[key] = element.text
+                    //println("key:" + key + "\tvalue:" + value)
+                }
+            }
+        }
+    }
     override fun parse(): HashMap<String,ClassConstructor>?{
         val valueContainer = hashMapOf<String,ClassConstructor>()//<Pair<String,ClassConstructor>>()
         val reader = SAXReader()
@@ -29,6 +43,7 @@ class XmlParser: Parser{
             println("配置文件读取失败")
             return null
         }
+        parseParameter(document)
         val list = document.rootElement.elements("drop")
         for (drop in list) {
             if (drop is Element) {
@@ -78,7 +93,9 @@ class XmlParser: Parser{
                         val name = parameter.attribute("name").value
                         var value: Any? = null
                         if (parameter.attribute("value") != null) {
-                            value = parameter.attribute("value").value
+                            val tmpValue = parameterList[parameter.attribute("value").value]
+                            value = tmpValue ?: parameter.attribute("value").value
+                            //value =
                         } else if (parameter.attribute("ref") != null) {
                             value = Pair(parameter.attribute("ref").value, Container.drop(parameter.attribute("ref").value))
                         }
