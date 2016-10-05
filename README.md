@@ -15,7 +15,7 @@
 #### todo
 * 对于容器内部二次初始化属性的优化，使之只初始化一次
 * 代码优化
-* bug修复
+* container从单例变为需要类
 
 #### 快速开始
 新建maven项目，编写xml配置文件命名为config.xml并放置resources目录下
