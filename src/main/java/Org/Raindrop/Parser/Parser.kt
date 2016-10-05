@@ -7,9 +7,9 @@ package Org.Raindrop.Parser
 import Org.Raindrop.Core.ClassConstructor
 import java.util.*
 
-
+/**
+ * 解析接口
+ */
 interface Parser {
-    var configFile: String?
     fun parse(): HashMap<String,ClassConstructor>?
-    //fun setConfigFile(filePath:String)
 }
