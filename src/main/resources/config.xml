@@ -2,12 +2,13 @@
 
 <raindrop>
     <parameters>
-        <parameter key="help.msg">我就是这么屌</parameter>
+        <parameter key="help.other">我就是这么屌</parameter>
     </parameters>
     <drop id="help" class="Test.Help" scope="singleton">
         <property name="message" value="%help.message%" />
         <property name="action" ref="simple"/>
     </drop>
 
-    <drop id="simple" class="Test.ActionImpl.SimpleAction" scope="singleton" />
+
+    <import resource="/parameters.xml" />
 </raindrop>

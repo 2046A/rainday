@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<raindrop>
+    <parameters>
+        <parameter key="help.message">我就是这么低调哦</parameter>
+    </parameters>
+    <drop id="simple" class="Test.ActionImpl.ShitAction" scope="singleton" />
+</raindrop>
