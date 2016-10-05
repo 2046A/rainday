@@ -46,7 +46,7 @@ class ClassConstructor {
                     finalValue = service
                 } else {
                     if(serviceId is String)
-                        finalValue = Container.drop(serviceId)
+                        finalValue = ApplicationContext.drop(serviceId)
                 }
             }
             field?.isAccessible = true
