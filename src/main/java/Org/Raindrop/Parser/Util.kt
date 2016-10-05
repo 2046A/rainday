@@ -46,6 +46,11 @@ object Util {
      */
     fun parseParameters(source: Document): List<Element>?{
         val list = arrayListOf<Element>()
+        source.rootElement.element("parameters")?: return null
+        //val parametersTag = source.rootElement.element("parameters")
+        //if(parametersTag == null){
+//            return null
+//        }
         val parameters = source.rootElement.element("parameters").elements("parameter")
         if(parameters != null){
             for(element in parameters){
@@ -64,6 +69,7 @@ object Util {
      */
     fun parseImportTag(source: Document): List<String>?{
         val ret = arrayListOf<String>()
+        source.rootElement.elements("import")?: return null
         val resources = source.rootElement.elements("import")
         if(resources != null){
             for(resource in resources){
@@ -81,6 +87,7 @@ object Util {
      */
     fun parseDropTag(source: Document): List<Element>?{
         val ret = arrayListOf<Element>()
+        source.rootElement.elements("drop")?: return null
         val drops = source.rootElement.elements("drop")
         if(drops != null){
             for(drop in drops){

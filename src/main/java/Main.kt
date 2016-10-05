@@ -11,7 +11,6 @@ fun main(argv: Array<String>) {
     if(a is Test.Help){
         println(a.message)
         a.message = "这是怪我的了"
-        //a.message?.act()
     }
     if(help is Test.Help){
         println(help.message)

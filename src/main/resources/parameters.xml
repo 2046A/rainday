@@ -4,5 +4,4 @@
     <parameters>
         <parameter key="help.message">我就是这么低调哦</parameter>
     </parameters>
-    <drop id="simple" class="Test.ActionImpl.ShitAction" scope="singleton" />
 </raindrop>

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <raindrop>
-    <parameters>
-        <parameter key="help.other">我就是这么屌</parameter>
-    </parameters>
-    <drop id="help" class="Test.Help" scope="singleton">
+
+    <drop id="help" class="Test.Help" scope="instance">
         <property name="message" value="%help.message%" />
         <property name="action" ref="simple"/>
     </drop>
 
-
     <import resource="/parameters.xml" />
+    <import resource="/refs.xml"/>
 </raindrop>

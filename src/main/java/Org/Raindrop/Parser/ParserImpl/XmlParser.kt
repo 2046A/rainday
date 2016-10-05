@@ -11,6 +11,7 @@ import Org.Raindrop.Core.Container
 import Org.Raindrop.Core.Scope
 import Org.Raindrop.Parser.Parser
 import Org.Raindrop.Parser.Util
+import org.dom4j.dom.DOMElement
 
 import java.lang.reflect.Field
 import java.util.*
@@ -41,7 +42,11 @@ class XmlParser(val path: String):Parser {
         val context = Util.read(path)
         if (context != null) {
             val rootElement = context.rootElement
-            val rootParameters = context.rootElement.element("parameters")
+            var rootParameters = context.rootElement.element("parameters")
+            if(rootParameters == null){//创建一个
+                context.rootElement.addElement("parameters")
+                rootParameters = context.rootElement.element("parameters")
+            }
             val importResourceList = Util.parseImportTag(context)
             if (importResourceList != null) {
                 for (resource in importResourceList) {
