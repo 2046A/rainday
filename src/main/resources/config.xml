@@ -2,7 +2,7 @@
 
 <rainday>
 
-    <rain id="help" class="Test.Help" scope="instance">
+    <rain id="help" class="Test.Help" scope="singleton">
         <property name="message" value="%help.message%" />
         <property name="action" ref="simple"/>
     </rain>

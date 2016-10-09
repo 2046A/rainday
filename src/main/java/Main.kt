@@ -2,12 +2,12 @@
  * Created by ivan on 16/9/29.
  *
  */
-import Org.Rainday.Core.ApplicationContext
+import org.rainday.core.Context
 
 fun main(argv: Array<String>) {
-    val context = ApplicationContext.context("/config.xml")
-    val help: Any? = context.rain("help")
-    val a: Any? = context.rain("help")
+    val context = Context("/config.xml")
+    val help: Any? = context.bean("help")
+    val a: Any? = context.bean("help")
     if(a is Test.Help){
         println(a.message)
         a.message = "这是怪我的了"

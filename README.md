@@ -68,7 +68,7 @@ class Help{
 编写启动文件
 
 ```
-import Org.Rainday.Core.Container
+import Org.rainday.Core.Container
 
 fun main(argv: Array<String>) {
     val context = ApplicationContext.context("/config.xml")
