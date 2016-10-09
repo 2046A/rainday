@@ -23,38 +23,56 @@
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<raindrop>
-    <!--<parameters>
-        <parameter key="help.msg">我就是这么屌</parameter>
-    </parameters>-->
-    <rain id="simple" class="Test.ActionImpl.ShitAction" scope="singleton" />
+<rainday>
 
     <rain id="help" class="Test.Help" scope="instance">
-        <constructor> <!--终极推荐做法-->
-            <constructor-arg name="message"  value="怪wo"/>
-        </constructor>
-        <property name="action" ref="simple"/>
+        <property name="message" value="%help.message%" />
+        <!--<property name="action" ref="simple"/>-->
     </rain>
+    <import resource="/parameters.xml" />
+    <import resource="/refs.xml" />
 
-</raindrop>
+</rainday>
+```
+
+parameters.xml放置于resources目录下
+
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rainday>
+    <parameters>
+        <parameter key="help.message">你就是好人啊</parameter>
+    </parameters>
+</rainday>
+
+```
+
+refs.xml同理
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rainday>
+    <!--<rain id="simple" class="Test.ActionImpl.SimpleAction" scope="singleton" />-->
+</rainday>
 ```
 
 新建包Test,编写Help类如下
 
 ```
-class Help(var message:String){
-    var action: String? = null
+class Help{
+    var message: String? = null
 }
 ```
 
 编写启动文件
 
 ```
-import Org.Raindrop.Core.Container
+import Org.Rainday.Core.Container
 
 fun main(argv: Array<String>) {
-    Container.construct()
-    val help: Any? = Container.rain("help")
+    val context = ApplicationContext.context("/config.xml")
+    val help: Any? = context.rain("help")
     if(a is Test.Help){
         println(a.message)
     }

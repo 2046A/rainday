@@ -1,4 +1,4 @@
-package Org.Raindrop.Parser
+package Org.Rainday.Parser
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.io.SAXReader
@@ -22,19 +22,7 @@ object Util {
     /**
      * 复制源element，添加新生成的element到目的element
      */
-    fun appendParameters(destination: Element, source: Element):Unit{
-        //destination.addElement(source.name).appendContent(source)
-        //source.de
-        val tmp = source.clone()
-        if(tmp is Element)
-            destination.add(tmp)
-    }
-
-    /**
-     * 同理...
-     */
-    fun appendDrops(destination: Element, source: Element):Unit{
-//        destination.addElement(source.name).appendContent(source)
+    fun append(destination: Element, source: Element):Unit{
         val tmp = source.clone()
         if(tmp is Element)
             destination.add(tmp)
@@ -87,8 +75,8 @@ object Util {
      */
     fun parseDropTag(source: Document): List<Element>?{
         val ret = arrayListOf<Element>()
-        source.rootElement.elements("drop")?: return null
-        val drops = source.rootElement.elements("drop")
+        source.rootElement.elements("rain")?: return null
+        val drops = source.rootElement.elements("rain")
         if(drops != null){
             for(drop in drops){
                 if(drop is Element)

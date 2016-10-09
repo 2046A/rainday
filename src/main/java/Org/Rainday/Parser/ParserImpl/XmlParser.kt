@@ -2,15 +2,15 @@
  * Created by ivan on 16/10/5.
  * Org.Raindrop.Parser.ParserImpl
  */
-package Org.Raindrop.Parser.ParserImpl
+package Org.Rainday.Parser.ParserImpl
 
-import Org.Raindrop.Core.ClassConstructor
+import Org.Rainday.Core.ClassConstructor
 import org.dom4j.Document
 import org.dom4j.Element
-import Org.Raindrop.Core.ApplicationContext
-import Org.Raindrop.Core.Scope
-import Org.Raindrop.Parser.Parser
-import Org.Raindrop.Parser.Util
+import Org.Rainday.Core.ApplicationContext
+import Org.Rainday.Core.Scope
+import Org.Rainday.Parser.Parser
+import Org.Rainday.Parser.Util
 
 import java.lang.reflect.Field
 import java.util.*
@@ -53,8 +53,8 @@ class XmlParser(val path: String):Parser {
                     if (tmpContext != null) {
                         val drops = Util.parseDropTag(tmpContext)
                         val parameters = Util.parseParameters(tmpContext)
-                        drops?.forEach { Util.appendDrops(rootElement, it) }
-                        parameters?.forEach { Util.appendParameters(rootParameters, it) }
+                        drops?.forEach { Util.append(rootElement, it) }
+                        parameters?.forEach { Util.append(rootParameters, it) }
                     }
                 }
             }

@@ -2,10 +2,10 @@
  * Created by ivan on 16/9/28.
  * Org.Raindrop.Core
  */
-package Org.Raindrop.Core
+package Org.Rainday.Core
 
 import java.util.*
-import Org.Raindrop.Parser.ParserImpl.XmlParser
+import Org.Rainday.Parser.ParserImpl.XmlParser
 
 
 /**

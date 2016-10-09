@@ -2,7 +2,7 @@
  * Created by ivan on 16/9/29.
  *
  */
-import Org.Raindrop.Core.ApplicationContext
+import Org.Rainday.Core.ApplicationContext
 
 fun main(argv: Array<String>) {
     val context = ApplicationContext.context("/config.xml")
