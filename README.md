@@ -27,14 +27,14 @@
     <!--<parameters>
         <parameter key="help.msg">我就是这么屌</parameter>
     </parameters>-->
-    <drop id="simple" class="Test.ActionImpl.ShitAction" scope="singleton" />
+    <rain id="simple" class="Test.ActionImpl.ShitAction" scope="singleton" />
 
-    <drop id="help" class="Test.Help" scope="instance">
+    <rain id="help" class="Test.Help" scope="instance">
         <constructor> <!--终极推荐做法-->
             <constructor-arg name="message"  value="怪wo"/>
         </constructor>
         <property name="action" ref="simple"/>
-    </drop>
+    </rain>
 
 </raindrop>
 ```
@@ -54,7 +54,7 @@ import Org.Raindrop.Core.Container
 
 fun main(argv: Array<String>) {
     Container.construct()
-    val help: Any? = Container.drop("help")
+    val help: Any? = Container.rain("help")
     if(a is Test.Help){
         println(a.message)
     }

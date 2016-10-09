@@ -23,9 +23,9 @@ object ApplicationContext {
     }
 
     /**
-     * 这个还是需要的，他妈的，重大的设计缺陷
+     * 这个还是需要的，重大的设计缺陷
      */
-    fun drop(id: String): Any?{
+    fun rain(id: String): Any?{
         val cons = drops?.get(id)//[id]
         return cons?.construct()
     }

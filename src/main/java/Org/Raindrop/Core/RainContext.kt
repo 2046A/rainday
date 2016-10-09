@@ -8,7 +8,7 @@ import Org.Raindrop.Parser.ParserImpl.XmlParser
 import java.util.*
 
 class RainContext(val drops: HashMap<String, ClassConstructor>?) {
-    fun drop(id: String): Any? {
+    fun rain(id: String): Any? {
         val constructor = drops?.get(id)
         return constructor?.construct()
     }

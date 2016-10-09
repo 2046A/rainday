@@ -6,8 +6,8 @@ import Org.Raindrop.Core.ApplicationContext
 
 fun main(argv: Array<String>) {
     val context = ApplicationContext.context("/config.xml")
-    val help: Any? = context.drop("help")
-    val a: Any? = context.drop("help")
+    val help: Any? = context.rain("help")
+    val a: Any? = context.rain("help")
     if(a is Test.Help){
         println(a.message)
         a.message = "这是怪我的了"

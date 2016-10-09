@@ -59,7 +59,7 @@ class XmlParser(val path: String):Parser {
                 }
             }
             parameterList = parseParameter(context) ?: hashMapOf<String, String>()
-            val list = rootElement.elements("drop")
+            val list = rootElement.elements("rain")
             for (drop in list) {
                 if (drop is Element) {
                     val id = drop.attribute("id").text
@@ -112,7 +112,7 @@ class XmlParser(val path: String):Parser {
                                 value = tmpValue ?: parameter.attribute("value").value
                                 //value =
                             } else if (parameter.attribute("ref") != null) {
-                                value = Pair(parameter.attribute("ref").value, ApplicationContext.drop(parameter.attribute("ref").value))
+                                value = Pair(parameter.attribute("ref").value, ApplicationContext.rain(parameter.attribute("ref").value))
                             }
                             for (field in classContext.declaredFields) {
                                 if (field.name == name) {
