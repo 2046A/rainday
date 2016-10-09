@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<raindrop>
+<rainday>
 
-    <drop id="help" class="Test.Help" scope="instance">
+    <rain id="help" class="Test.Help" scope="singleton">
         <property name="message" value="%help.message%" />
         <property name="action" ref="simple"/>
-    </drop>
+    </rain>
 
     <import resource="/parameters.xml" />
     <import resource="/refs.xml"/>
-</raindrop>
+</rainday>

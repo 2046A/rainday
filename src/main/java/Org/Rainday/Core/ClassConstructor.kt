@@ -2,9 +2,10 @@
  * Created by ivan on 16/9/29.
  * Org.Raindrop.Core
  */
-package Org.Raindrop.Core
+package org.rainday.core
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
+//import java.util.*
 
 /**
  *
@@ -46,7 +47,7 @@ class ClassConstructor {
                     finalValue = service
                 } else {
                     if(serviceId is String)
-                        finalValue = ApplicationContext.rain(serviceId)
+                        finalValue = Container.context?.get(serviceId)?.construct()//container[serviceId]?.construct(container)//解耦合做的很烂啊，还得持续优化
                 }
             }
             field?.isAccessible = true

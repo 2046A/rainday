@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<raindrop>
+<rainday>
     <parameters>
         <parameter key="help.message">我就是这么低调哦</parameter>
     </parameters>
-</raindrop>
+</rainday>
