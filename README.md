@@ -68,11 +68,11 @@ class Help{
 编写启动文件
 
 ```
-import Org.rainday.Core.Container
+import org.rainday.core.Context
 
 fun main(argv: Array<String>) {
-    val context = ApplicationContext.context("/config.xml")
-    val help: Any? = context.rain("help")
+    val context = Context("/config.xml")
+    val help: Any? = context.bean("help")
     if(a is Test.Help){
         println(a.message)
     }
