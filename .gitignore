@@ -16,3 +16,7 @@ target/
 hs_err_pid*
 META-INF/
 classes/
+
+learn-netty/
+web/
+

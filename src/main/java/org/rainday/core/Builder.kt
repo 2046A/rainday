@@ -18,7 +18,7 @@ class Builder(val xmlParser: IXml) {
         if(beans != null) {
             for(bean in beans){
                 val constructor = ClassConstructor()
-                constructor.scope = if(bean.attribute("scope").text=="singleton") Scope.SINGLETON else Scope.INSTANCE
+                constructor.scope = if(bean.attribute("scope")?.text=="singleton") Scope.SINGLETON else Scope.INSTANCE
                 val classContext = Class.forName(bean.attribute("class").text)
                 val init = bean.element("constructor")
                 if(init != null){ //有构造器
