@@ -10,7 +10,6 @@
     <version>0.0.1</version>
     <modules>
         <module>learn-netty</module>
-        <module>web</module>
     </modules>
 
 
