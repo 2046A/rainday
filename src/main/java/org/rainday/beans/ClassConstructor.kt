@@ -51,7 +51,15 @@ class ClassConstructor {
                 }
             }
             field?.isAccessible = true
-            field?.set(instance, finalValue)
+            when(field?.genericType?.typeName){
+                //todo 添加其他类型
+                "java.lang.Integer" -> { if(finalValue!="") field?.set(instance, finalValue.toString().toInt()) else field?.set(instance, 0)}
+                "java.lang.String" -> field?.set(instance, finalValue)
+                else -> field?.set(instance, finalValue)
+            }
+            //println("typeName:" + field?.genericType?.typeName+"\tvalue:" + finalValue)
+
+            //field?.set(instance, finalValue)
             if(field?.modifiers.toString() == "private"){
                 field?.isAccessible = false
             } else{
