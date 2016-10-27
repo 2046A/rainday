@@ -1,4 +1,4 @@
-#### raindrop - 基于kotlin语言的依赖注入框架
+#### raindrop - 基于kotlin语言的依赖注入框架~~学习kotlin之用~
 * 使用xml文件格式配置
 * 尽量少的使用外部库，最好只使用标准库
 * 参考Spring的xml配置
@@ -68,7 +68,7 @@ class Help{
 编写启动文件
 
 ```
-import org.rainday.core.Context
+import org.rainday.beans.Context
 
 fun main(argv: Array<String>) {
     val context = Context("/config.xml")

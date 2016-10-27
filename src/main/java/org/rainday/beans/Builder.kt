@@ -1,4 +1,4 @@
-package org.rainday.core
+package org.rainday.beans
 
 import org.rainday.parser.IXml
 import org.dom4j.Element
@@ -10,8 +10,8 @@ import java.util.*
  * 构建ClassConstructor
  */
 class Builder(val xmlParser: IXml) {
-    fun build(): HashMap<String, ClassConstructor>{
-        val container = hashMapOf<String,ClassConstructor>()
+    fun build(): HashMap<String, ClassConstructor> {
+        val container = hashMapOf<String, ClassConstructor>()
         xmlParser.parse()
         val parameters = xmlParser.getParameters()
         val beans = xmlParser.getBeans()

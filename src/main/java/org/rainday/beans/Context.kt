@@ -2,7 +2,7 @@
  * Created by ivan on 16/9/28.
  * Org.Raindrop.Core
  */
-package org.rainday.core
+package org.rainday.beans
 import org.rainday.parser.XmlImpl.SimpleXml
 
 /**

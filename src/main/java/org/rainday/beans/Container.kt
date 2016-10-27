@@ -1,4 +1,4 @@
-package org.rainday.core
+package org.rainday.beans
 
 import java.util.*
 

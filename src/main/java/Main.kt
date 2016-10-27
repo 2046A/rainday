@@ -2,7 +2,7 @@
  * Created by ivan on 16/9/29.
  *
  */
-import org.rainday.core.Context
+import org.rainday.beans.Context
 
 fun main(argv: Array<String>) {
     val context = Context("/config.xml")
